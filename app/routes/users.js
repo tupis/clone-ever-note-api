@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
 const jwt = require("jsonwebtoken");
+const WithAuth = require('../middlewares/auth');
 
 const secret = process.env.JWT_TOKEN
 
@@ -46,13 +47,39 @@ router.get('/all', async (req, res) => {
   }
 })
 
-router.delete('/delete', async (req, res) => {
+router.put('/', WithAuth, async (req, res) => {
+  const {name, email} = req.body;
+
   try {
-    await User.findByIdAndDelete('62e96381ff82e88f5bc12c6b')
-    const allUsers = await User.find({})
-    res.status(200).json(allUsers)
+    let user = await User.findByIdAndUpdate(
+      req.user._id,
+      { $set: {name, email} },
+      { upsert: true, 'new': true }
+    )
+    res.status(200).json(user)
   } catch (error) {
-    res.status(500).json({error: "Erro ao excluir usuário"})
+    res.status(401).json({error})
+  }
+})
+
+router.put('/password', WithAuth, async (req, res) => {
+  const { password } = req.body;
+  try {
+    let user = await User.findByIdAndUpdate(req.user._id,)
+    user.password = password
+    await user.save();
+    res.json(user)
+  } catch (error) {
+    res.status(401).json(error)
+  }
+})
+
+router.delete('/', WithAuth, async (req, res) => {
+  try {
+    let user = await User.findByIdAndDelete(req.user.id);
+    res.status(200).json({message: 'User deleted successfully'})
+  } catch (error) {
+    
   }
 })
 
