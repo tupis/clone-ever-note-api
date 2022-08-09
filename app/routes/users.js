@@ -76,7 +76,7 @@ router.put('/password', WithAuth, async (req, res) => {
 
 router.delete('/', WithAuth, async (req, res) => {
   try {
-    let user = await User.findByIdAndDelete(req.user.id);
+    let user = await User.findByIdAndDelete(req.user._id);
     res.status(200).json({message: 'User deleted successfully'})
   } catch (error) {
     
