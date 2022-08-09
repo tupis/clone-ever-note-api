@@ -2,7 +2,7 @@ const express = require('express');
 let cors = require('cors');
 const path = require('path');
 const logger = require('morgan');
-require("dotenv").config();
+// require("dotenv").config();
 require('./config/database')
 
 
