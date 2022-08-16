@@ -56,6 +56,8 @@ Principais tecnologia usada neste projeto
 * [NodeJs](https://nodejs.org/en/docs/) - Runtime do JavaScript
 * [MongoDB](https://www.mongodb.com/docs/) - Banco de dados
 * [Mongoose](https://mongoosejs.com/docs/) - Biblioteca que se conecta com o banco de dados
+* [Bcrypt](https://www.npmjs.com/package/bcrypt) - Biblioteca de hash
+* [JWT](https://jwt.io/) - Gerador de token
 
 ## 📄 Licença
 
